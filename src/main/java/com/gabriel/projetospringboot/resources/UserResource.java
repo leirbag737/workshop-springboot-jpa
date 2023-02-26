@@ -14,7 +14,7 @@ import com.gabriel.projetospringboot.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResources {
+public class UserResource {
 
     @Autowired
     private UserService service;
