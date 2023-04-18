@@ -1,5 +1,6 @@
 package com.gabriel.projetospringboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gabriel.projetospringboot.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -9,19 +10,19 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrdemItem implements Serializable {
+public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
     private Integer quantity;
     private Double price;
 
-    public OrdemItem(){
+    public OrderItem(){
 
     }
 
-    public OrdemItem(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         super();
         id.setOrder(order);
         id.setProduct(product);
@@ -29,6 +30,7 @@ public class OrdemItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
@@ -65,13 +67,13 @@ public class OrdemItem implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OrdemItem)) return false;
+        if (!(o instanceof OrderItem)) return false;
 
-        OrdemItem ordemItem = (OrdemItem) o;
+        OrderItem orderItem = (OrderItem) o;
 
-        if (id != null ? !id.equals(ordemItem.id) : ordemItem.id != null) return false;
-        if (quantity != null ? !quantity.equals(ordemItem.quantity) : ordemItem.quantity != null) return false;
-        return price != null ? price.equals(ordemItem.price) : ordemItem.price == null;
+        if (id != null ? !id.equals(orderItem.id) : orderItem.id != null) return false;
+        if (quantity != null ? !quantity.equals(orderItem.quantity) : orderItem.quantity != null) return false;
+        return price != null ? price.equals(orderItem.price) : orderItem.price == null;
     }
 
     @Override
